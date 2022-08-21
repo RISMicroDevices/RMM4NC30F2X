@@ -36,7 +36,7 @@
 &emsp;&emsp;寄存器重命名表（RAT）中记录着当前某一个寄存器对应的ROB槽位，指令在提交（退休）之前，会将计算完毕的值存储到ROB中，并借此来完成乱序发射要求的寄存器重命名。所有的结果值直到指令在ROB尾端被提交（退休）之后，才会被写入到架构寄存器之中去。  
 
 ### **3. 指令发射**
-![Gemini30F2处理器发射部分架构设计](https://github.com/RISMicroDevices/assets/blob/master/RMM4NC30F2X/Gemini30F2-Issue.png "Gemini30F2处理器发射部分架构设计")
+![Gemini30F2处理器发射部分架构设计](https://github.com/RISMicroDevices/assets/blob/master/RMM4NC30F2X/Gemini30F2-Issue.png "Gemini30F2处理器发射部分架构设计")  
 &emsp;&emsp;发射阶段使用一个发射队列来完成指令的发射。指令在完成计算，写回ROB的过程中会唤醒发射队列中的指令。并且对于这些准备好的指令，最老的指令总是被最先发射。没有准备好的指令则在队列中原位等待。发射队列使用一个压缩移位FIFO来实现。  
 &emsp;&emsp;本乱序发射设计中，分支之间不可乱序，写内存指令后的所有访存指令不可在其之前执行。  
 &emsp;&emsp;其中写回历史表（WHT）是为了解决指令还在流水线中飞行而还没有被写入发射队列时，不能被唤醒的设计，防止指令在发射队列中形成死锁。  
