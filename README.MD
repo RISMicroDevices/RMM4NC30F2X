@@ -20,9 +20,22 @@
 &emsp;&emsp;利用了本处理器直接支持 AXI-4 总线的特点，使用了 Xilinx 的 CORDIC IP，将其挂载在 AXI-4 总线的MMU上，并分配虚拟寄存器地址，最终得到了一个非常不错的运行时间。（遗憾未能在决赛答题时间内提交正确结果）
 
 ## 三、架构细节
+![Gemini30F2处理器核整体架构图](https://github.com/RISMicroDevices/assets/blob/master/RMM4NC30F2X/Gemini30F2-Global.png "Gemini30F2处理器核整体架构图")  
+&emsp;&emsp;Gemini30F2核心的整体架构图如上图所示。其中2级为取指令，2级为解码与寄存器重命名、重排序缓存，2级为发射队列，1级为指令分发，1~3级为执行，1级为写回，1级为提交。  
 
-TBD
 
-## 四、部分目录说明
-
-TBD
+## 四、文件目录说明
+|路径|描述|
+|--|--|
+|main/amba/|一些AXI基础设施
+|main/constrains/|基本约束文件
+|main/core/|核心设计文件
+|main/core/commit/|提交阶段Verilog源代码
+|main/core/decode/|解码与寄存器阶段Verilog代码
+|main/core/def/|公用定义
+|main/core/dispatch/|分发阶段Verilog源代码（仅DFF构成）
+|main/core/execute/|执行阶段Verilog源代码
+|main/core/fetch/|取指令阶段Verilog源代码
+|main/core/issue/|发射阶段Verilog源代码
+|main/core/misc/|杂项
+|main/soc/|顶层文件与部分外设
